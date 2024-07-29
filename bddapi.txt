@@ -1,0 +1,45 @@
+-- Table Customers
+CREATE TABLE Customers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    surname VARCHAR(255),
+    email VARCHAR(255) UNIQUE NOT NULL
+);
+
+-- Table Orders
+CREATE TABLE Orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customers_id INT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(255),
+    FOREIGN KEY (customers_id) REFERENCES Customers(id)
+);
+
+-- Table Products
+CREATE TABLE Products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    stock INT NOT NULL
+);
+
+-- Table OrderProducts
+CREATE TABLE OrderProducts (
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (order_id, product_id),
+    FOREIGN KEY (order_id) REFERENCES Orders(id),
+    FOREIGN KEY (product_id) REFERENCES Products(id)
+);
+
+-- Table Resellers
+CREATE TABLE Resellers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    api_key VARCHAR(255) UNIQUE NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE
+);
