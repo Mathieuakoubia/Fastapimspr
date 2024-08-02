@@ -7,5 +7,4 @@ passlib[bcrypt]
 pymysql
 psycopg2-binary
 gunicorn
-pytest
-httpx
+
