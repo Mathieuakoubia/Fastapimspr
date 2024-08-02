@@ -51,4 +51,3 @@ def read_products(skip: int = 0, limit: int = 10, db: Session = Depends(get_db),
     products = crud.get_products(db, skip=skip, limit=limit)
     return products
 
-"""test changement"""
