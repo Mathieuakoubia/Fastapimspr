@@ -1,13 +1,12 @@
+import os
 from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 
 from . import models
-
 from . import crud, dependencies
 from . import schemas
 from .Databases import engine, get_db
-
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -16,10 +15,6 @@ app = FastAPI()
 @app.get("/")
 async def read_root():
     return {"Hello": "World"}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
 
 @app.post("/resellers/", response_model=schemas.Reseller)
 def create_reseller(reseller: schemas.ResellerCreate, db: Session = Depends(get_db)):
@@ -59,3 +54,7 @@ def read_products(skip: int = 0, limit: int = 10, db: Session = Depends(get_db),
     products = crud.get_products(db, skip=skip, limit=limit)
     return products
 
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get('PORT', 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
