@@ -50,3 +50,5 @@ def create_product(product: schemas.ProductCreate, db: Session = Depends(get_db)
 def read_products(skip: int = 0, limit: int = 10, db: Session = Depends(get_db), current_reseller: schemas.Reseller = Depends(dependencies.get_current_reseller)):
     products = crud.get_products(db, skip=skip, limit=limit)
     return products
+
+"""test changement"""
