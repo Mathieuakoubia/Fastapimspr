@@ -1,10 +1,14 @@
 fastapi
 uvicorn
 sqlalchemy
-pydantic
-python-jose[cryptography]
-passlib[bcrypt]
-pymysql
+PyMySQL
 psycopg2-binary
-gunicorn
+pydantic
+python-dotenv
+passlib==1.7.4
+bcrypt==3.2.0
+qrcode
+pillow
+pytest
+python-jose
 
