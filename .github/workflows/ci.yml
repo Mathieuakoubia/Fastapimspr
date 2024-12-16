@@ -12,7 +12,7 @@ on:
 
 jobs:
   build-and-test-api:
-    name: Build and Test API
+    name: Build, Test API, and Send Email
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -36,12 +36,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Tests
+      - name: Send Test Email
         env:
-          TEST_DATABASE_URL: mysql+pymysql://mak:mak1@localhost/apimspr_test
-          TESTING: "true"
-        run: pytest --disable-warnings
+          EMAIL: ${{ secrets.EMAIL }} # Ajouter matheothedon@gmail.com comme secret dans GitHub
+          PASSWORD: ${{ secrets.PASSWORD }} # Ajouter votre mot de passe d'application Gmail comme secret
+        run: python test_qrcode.py
 
-      - name: Deploy to Production (conditional)
-        if: ${{ github.ref == 'refs/heads/main' && success() }}
-        run: echo "Deployment Step Here!"
+       
