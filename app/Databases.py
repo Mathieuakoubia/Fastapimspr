@@ -2,8 +2,13 @@ import os
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
+from dotenv import load_dotenv
 
-DATABASE_URL = 'mysql+pymysql://admin225:GUmx29225AWS@apimspr2.ctqm0qeikja8.eu-west-3.rds.amazonaws.com:3306/apimsprdb'
+load_dotenv()  # Charge les variables d'environnement depuis le fichier .env
+
+print("DATABASE_URL:", os.getenv("DATABASE_URL"))  # Affiche la valeur de DATABASE_URL
+
+DATABASE_URL = os.getenv('DATABASE_URL')
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()

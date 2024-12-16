@@ -7,10 +7,12 @@ import datetime
 class Reseller(Base):
     __tablename__ = "resellers"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    email = Column(String, unique=True, index=True)
-    api_key = Column(String, unique=True, index=True)
+    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    name = Column(String, nullable=False)
+    surname = Column(String, nullable=False)  # Nouveau champ
+    email = Column(String, unique=True, index=True, nullable=False)
+    password = Column(String, nullable=False)  # Pour stocker le mot de passe haché
+    api_key = Column(String, unique=True, index=True, nullable=False)
     is_active = Column(Boolean, default=True)
 
 class Customer(Base):
